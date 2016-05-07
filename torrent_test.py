@@ -6,7 +6,7 @@ import shutil
 
 def torr_test():
 
-    working_dir = os.walk(os.path.join(os.getcwd(), 'test_folder'))
+    working_dir = os.walk(r"C:\Users\baldu\Dropbox\Bs.C-Hugb\4.önn\PRAL\verk4\test_folder")
     subdirs = [x[0] for x in working_dir]
 ##    pp(subdirs)
 ##
@@ -20,11 +20,15 @@ def torr_test():
 ##    
 ##    
     for i in subdirs[1:]:
+##        print(i, 'Is being tested')
         if os.path.isdir(i) and contains_tv_show(i):
-##            print(i,'oooooooyeaaaa')
+##            print('ooa')
 ##            break
+##            print(i, 'Is a TV show')
             shutil.move(i, TV_shows)
-            
+
+
+##            
 ##shutil.move(i, TV_shows)
 ##        
 ##
@@ -43,10 +47,12 @@ def torr_test():
                 
 def contains_tv_show(in_path):
     sub_list = [x[2] for x in os.walk(in_path)]
-    for i in sub_list[1:]:
-        if 'episode' or 'season' in PTN.parse(str(i)).keys():
+    for i in sub_list:
+##        print(i, 'hmmmmm...')
+        if 'episode' in PTN.parse(str(i)).keys():
             return True
     return False
+
 ##    if sub_list == []:
 ##        return False
 ##    else:
