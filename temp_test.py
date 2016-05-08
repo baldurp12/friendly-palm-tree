@@ -7,7 +7,7 @@ import shutil
 
 
 def etst():
-    info = PTN.parse(r"C:\Users\baldu\Dropbox\Bs.C-Hugb\4.önn\PRAL\verk4\test_folder\House.S08E09.HDTV.XviD-LOL")
+    info = PTN.parse("30 Rock [1.02] The Aftermath")
     pp(info)
     if 'episode' in info.keys():
         print('Þetta er líklega þáttur maffakka')
