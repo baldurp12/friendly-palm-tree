@@ -7,7 +7,7 @@ import shutil
 
 
 def etst():
-    info = PTN.parse("30 Rock [1.02] The Aftermath")
+    info = PTN.parse(''.join("Arrested Development - S2 E 01 - The One Where Michael Leaves").replace(' ', ''))
     pp(info)
     if 'episode' in info.keys():
         print('Þetta er líklega þáttur maffakka')
