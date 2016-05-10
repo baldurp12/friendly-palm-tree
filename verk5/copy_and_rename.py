@@ -1,6 +1,10 @@
-import os
+def copy_and_rename(final_path, file_path, file_dict):
 
-def copy_and_rename():
+	if title exists:
+		rename 'Track number' ' - ' + 'Title' + '.mp3'
 
+	else:
+		þarf ekkert að gera
 
-copy_and_rename()
+	
+	copy(file_path, final_path)

@@ -1,0 +1,62 @@
+def copy_and_rename(final_path, file_path, file_dict):
+
+	if title exists:
+		rename 'Track number' ' - ' + 'Title' + '.mp3'
+
+	else:
+		þarf ekkert að gera
+
+	
+	copy(file_path, final_path)
+
+
+
+def file_parser(file_path):
+
+	smíða dictionary með stagger:
+		tag.artist
+		tag.title
+		tag.album
+		tag.track
+	SETJA TÓMAN STRENG EF AÐ EITTHVAÐ TAG ER EKKI TIL !
+
+
+
+	if artist in dict:
+		move_to_artist(file_path, dict)
+	else:
+		move_to_other(file_path, dict)
+
+
+def move_to_artist(file_path, dict):
+	
+	teljari = count(artists)
+	
+	final_path = ''
+
+	if teljari > 1:
+		try to make album folder
+		final_path = folder for tag.album in copy_folder
+	else:
+		try to make artist folder
+		try to make artist/album folder
+		final_path = copy_folder + artist + album
+	
+
+	copy_and_rename(final_path, file_path, dict)
+
+
+def move_to_other(file_path, dict):
+	
+	if album in dict:
+		try to make album folder in copy_folder/other
+		final_path = copy_folder/other/album/
+	else:
+		final_path = copy_folder/other/
+
+	copy_and_rename(final_path, file_path, dict)
+
+
+
+
+
