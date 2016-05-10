@@ -3,7 +3,9 @@ import shutil
 
 
 def move_to_other(): ##file_path, tag_dict
-    ###-----------album er tomt-------
+    
+    ##----album er tomt----##
+
     if tag_dict['album'] == '':
         print("ekki album")
         ##copy_and_rename(new_path, file_path, tag_dict)
