@@ -9,10 +9,17 @@ def move_to_other(): ##file_path, tag_dict
     if tag_dict['album'] == '':
         print("ekki album")
         ##copy_and_rename(new_path, file_path, tag_dict)
-    
+    ###----album strengurinn er ekki tomur---
     else:
         album_path = os.path.join(new_path, tag_dict['album'])
-        os.mkdir(album_path)
+        ####----mappan album er nuthegar til-----
+        if os.path.isdir(album_path):
+            print('albumið er til')
+            pass
+        ####-----mappan album er ekki nuthegar til----
+        else:
+            os.mkdir(album_path)
+            print('bjo til album' + album_path)
         ##print(album_path)
         ##copy_and_rename(album_path, file_path, dict)
 
