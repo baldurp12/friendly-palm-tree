@@ -2,32 +2,24 @@ import os
 import shutil
 
 
-def move_to_other(file_path, tag_dict):
-    
-    copy_path = os.path.join(os.getcwd(), 'copy_folder')
-
-    if os.path.isdir(copy_path):
-        pass
-    else:
-        os.mkdir(copy_path)
-      
+def move_to_other(): ##file_path, tag_dict
+    ###-----------album er tomt-------
     if tag_dict['album'] == '':
-        print(r'final_path = copy_folder/other/')
+        print("ekki album")
+        ##copy_and_rename(new_path, file_path, tag_dict)
     
     else:
-        try:
-            print(r' trying to make album folder in copy_folder/other')
-            print(r'final_path = copy_folder/other/album/')
-        except:
-            print(r'Makeing the album folder failed')
-        
-
-
-##    copy_and_rename(final_path, file_path, dict)
+        album_path = os.path.join(new_path, tag_dict['album'])
+        os.mkdir(album_path)
+        ##print(album_path)
+        ##copy_and_rename(album_path, file_path, dict)
 
 
 
 
-dick = {'artist' : '', 'album': 'love and peace', 'title': '- . - _'}
+tag_dict = {'artist' : '', 'album': 'love and peace', 'title': '- . - _'}
 
-move_to_other('jon', dick)
+file_path = r'/Users/berglindliljabjornsdottir/Documents/python/ipod/F02/WKLF.mp3'
+new_path = r'/Users/berglindliljabjornsdottir/Documents/python/stagger-test/copy-folder/00trash'
+
+move_to_other()
