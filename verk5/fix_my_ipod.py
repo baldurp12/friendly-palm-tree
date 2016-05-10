@@ -4,7 +4,7 @@ from os.path import join as jo
 from stagger import *
 from pprint import pprint as pp
 
-copy_folder = r'00_copy_"#$%%(folder'
+copy_folder = '00_copy_folder'
 other_folder = '00_Other'
 
 def list_dir_test():
@@ -12,19 +12,27 @@ def list_dir_test():
     
     ##----MAKE COPY FOLDER AND OTHER FOLDER----##
 
+
+    
     try:
-        os.mkdir(os.path.join(os.getcdw(), copy_folder))
+        os.mkdir(os.path.join(os.getcwd(), copy_folder))
     except:
         print('Could not create the folder: ' + copy_folder)
-        print('enter " to continue ? (y / yes)')
-        user_choice = input()
-        if user_choice == ('y'):
-            pass
-        else:
-            return 'User aborted'
+
+    try:
+        os.mkdir(os.path.join(os.getcwd(), other_folder))
+    except:
+        print('Could not create the folder: ' + other_folder)
+
+##        print('enter "y" to continue')
+##        user_choice = input()
+##        if user_choice == ('y'):
+##            pass
+##        else:
+##            print('User aborted')
+##            return 0
     
-    print('ooooops')
-    return 7000
+
     
     a = [x[0] for x in os.walk(os.getcwd())]
     test_list = []
@@ -32,12 +40,12 @@ def list_dir_test():
         for j in os.listdir(i):
             curr_path = pa.join(i,j)
             if pa.isfile(curr_path) and j.endswith('.mp3'):
-                pass
+
 ##                if j in multi_pass_check:
 ##                    print('\n' + j + ' is already parsed' + '\n and is in: ' + curr_path)
 ##                else:
 ##                    multi_pass_check.append(j)
-####                file_parser(curr_path)
+                file_parser(curr_path)
 
 
 
@@ -70,9 +78,9 @@ def file_parser(file_path):
             ## Kanski tjékka hvort að það sé hægt að finna artist i title ##
 
     if tag_dict['artist'] != '':
-##		move_to_artist(file_path, tag_dict)
-        print('Move to artist ' + '\n' + file_path + '\n')
-        pp(tag_dict)
+        move_to_artist(file_path, tag_dict)
+##        print('Move to artist ' + '\n' + file_path + '\n')
+##        pp(tag_dict)
     else:
         print('Move to other: ' + '\n' + file_path + '\n')
         pp(tag_dict)
@@ -85,26 +93,33 @@ def move_to_artist(file_path, tag_dict):
         ##----if we have multiple artists----##   
     
     if type(tag_dict['artist']) == list:
-        just_album_path = os.path.join( 'asdf', tag_dict['album'])
+        just_album_path = os.path.join(copy_folder, tag_dict['album'])
         #print(just_album_path)
         if os.path.isdir(just_album_path):
             pass
         else:
-            os.mkdir(just_album_path)
+            print('Making folder: ' + just_album_path)
+##            os.mkdir(just_album_path)
         ## copy_and_rename(just_album_path, file_path, dict)
         ##----if we have one artist----##
     else:
-        artist_path = os.path.join( 'asdf' , tag_dict['artist'])
-        os.mkdir(artist_path)
+        artist_path = os.path.join(copy_folder , tag_dict['artist'])
+        if os.path.isdir(artist_path):
+            pass
+        else:
+            print('Making folder: ' + artist_path)
+##            os.mkdir(artist_path)
+
         if tag_dict['album'] != "":
                 ##---- if we have an aritst and an album----##
             
             ##print(album_path)
-            album_path = os.path.join(new_path, os.path.join(tag_dict['artist'], tag_dict['album']))
+            album_path = os.path.join(copy_folder, os.path.join(tag_dict['artist'], tag_dict['album']))
             if os.path.isdir(album_path):
                 pass
             else:
-                os.mkdir(album_path)
+                print('Making folder: ' + album_path)
+##                os.mkdir(album_path)
                     ## copy_and_rename(album_path, file_path, dict)
                 ## -----if we just have an artist but no album-----##
         ##else:
