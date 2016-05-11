@@ -1,8 +1,8 @@
 import os
 from os import path as pa
 from os.path import join as jo
-from stagger import *
-from pprint import pprint as pp
+from stagger import *           ## Stagger: pip install stagger
+from pprint import pprint as pp ## Used for 'debugging'
 
 copy_folder = '00_copy_folder'
 other_folder = '00_Other'
@@ -11,60 +11,49 @@ log_file = open('resaults.log', 'a')
 def list_dir_test():
     multi_pass_check = [] ## Hluti af testi, ma henda i tiltekt
     
-    ##----MAKE COPY FOLDER AND OTHER FOLDER----##
 
-
+    ##---- Making copy_folder and other_folder ----##
     
     try:
         os.mkdir(os.path.join(os.getcwd(), copy_folder))
     except:
-        log_file.write('Could not create the folder: ' + copy_folder)
-        print('Could not create the folder: ' + copy_folder)
+        if os.path.isdir(os.path.join(os.getcwd(), copy_folder)):
+            pass
+        else:
+            log_file.write('ERROR While making folder: ' + copy_folder)
+            print('Could not create folder: ' + copy_folder)
+            return 0 ##Abort if cant make folder and folder doesnt exist
+
 
     try:
         os.mkdir(os.path.join(os.getcwd(), other_folder))
     except:
-        log_file.write('Could not create the folder: ' + other_folder)
-        print('Could not create the folder: ' + other_folder)
-##        print('enter "y" to continue')
-##        user_choice = input()
-##        if user_choice == ('y'):
-##            pass
-##        else:
-##            print('User aborted')
-##            return 0
-    
+        if os.path.isdir(os.path.join(os.getcwd(), other_folder)):
+            pass
+        else:
+            log_file.write('ERROR While making folder: ' + other_folder)
+            print('Could not create folder: ' + other_folder)
+            print('enter "y" to continue')
+            return 0    ##Abort if cant make folder and folder doesnt exist
 
-    
+
+
+    ##---- Start walking through folders ----#
     a = [x[0] for x in os.walk(os.getcwd())]
     test_list = []
     for i in a[1:]:
         for j in os.listdir(i):
             curr_path = pa.join(i,j)
             if pa.isfile(curr_path) and j.endswith('.mp3'):
-
-##                if j in multi_pass_check:
-##                    print('\n' + j + ' is already parsed' + '\n and is in: ' + curr_path)
-##                else:
-##                    multi_pass_check.append(j)
                 file_parser(curr_path)
-
-
-##                try:
-##                    tag = stagger.read_tag(curr_path)
-##                    test_list.append(tag.artist)
-##                except:
-##                    print(curr_path)
-##
-##    print(set(test_list))
-##    
+ 
         
         
 
 
 def file_parser(file_path):
 
-##	smíða dictionary með stagger:
+    ##---- Create dictionary with stagger ----##
     
     tag_dict = {}
     try:
@@ -80,13 +69,15 @@ def file_parser(file_path):
 
     if tag_dict['artist'] != '':
         move_to_artist(file_path, tag_dict)
+        
 ##        print('Move to artist ' + '\n' + file_path + '\n')
 ##        pp(tag_dict)
+        
     else:
         log_file.write('\n' + 'Move to other: ' + '\n' + file_path + '\n')
         print('\n' + 'Move to other: ' + '\n' + file_path + '\n')
         pp(tag_dict)
-##		move_to_other(file_path, tag_dict)
+	move_to_other(file_path, tag_dict)
 
 
 
@@ -96,14 +87,17 @@ def move_to_artist(file_path, tag_dict):
     
     if type(tag_dict['artist']) == list:
         just_album_path = os.path.join(copy_folder, tag_dict['album'])
-        #print(just_album_path)
+        
+##        print(just_album_path)
         if os.path.isdir(just_album_path):
             pass
         else:
             log_file.write('\n' + 'Making folder: ' + just_album_path)
             print('Making folder: ' + just_album_path)
-##            os.mkdir(just_album_path)
-        ## copy_and_rename(just_album_path, file_path, dict)
+            os.mkdir(just_album_path)
+##            copy_and_rename(just_album_path, file_path, dict)
+
+
         ##----if we have one artist----##
     else:
         artist_path = os.path.join(copy_folder , tag_dict['artist'])
@@ -114,23 +108,52 @@ def move_to_artist(file_path, tag_dict):
             print('\n' + 'Making folder: ' + artist_path)
 ##            os.mkdir(artist_path)
 
-        if tag_dict['album'] != "":
-                ##---- if we have an aritst and an album----##
+
+        ##---- if we have an aritst and an album ----##
+
             
-            ##print(album_path)
+            
+        if tag_dict['album'] != "":            
             album_path = os.path.join(copy_folder, os.path.join(tag_dict['artist'], tag_dict['album']))
+            print(album_path)
+
             if os.path.isdir(album_path):
                 pass
             else:
                 log_file.write('\n' + 'Making folder: ' + album_path)
                 print('\n' + 'Making folder: ' + album_path)
-##                os.mkdir(album_path)
-                    ## copy_and_rename(album_path, file_path, dict)
-                ## -----if we just have an artist but no album-----##
-        ##else:
-                ## copy_and_rename(artist_path, file_path, dict) 
+                os.mkdir(album_path)
+##            copy_and_rename(album_path, file_path, dict)
+
+
+        ##---- if we just have an artist but no album ----##
+        else:
+##            copy_and_rename(artist_path, file_path, dict)
+
+
+def move_to_other(file_path, tag_dict):
+    
+    ##----album er tomt----##
+
+    if tag_dict['album'] == '':
+        print("ekki album")
+        new_path = os.path.join(os.getcwd(), other_folder)
+
+    else:
+        path_other_folder = os.path.join(os.getcwd(), other_folder)
+        
+        new_path = os.path.join( path_other_folder , tag_dict['album'])
+
+        print('Making: ' + new_path + '\n')
+        
+        try:
+            os.mkdir(new_path)
+        except:
+            print('Cannot make folder: ' + new_path)
+
+
+    print('Sending ' + os.path.split(file_path)[1] + '\n'
+          'To: ' + new_path + '\n')
 
     
-
-list_dir_test()
 
