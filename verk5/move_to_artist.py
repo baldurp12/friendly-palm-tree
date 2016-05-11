@@ -36,7 +36,7 @@ tag_dict = {'artist': 'Berglind', 'album': '', 'title': 'Fallinn með 4.9', 'tra
 ##print(os.getcwd()) to get path, takk fyrir ekkert mac
 
 
-move_to_artist()
+
 
 ##tag = stagger.read_tag(file_path)
 ##print(tag.artist + "woo" + tag.album)
