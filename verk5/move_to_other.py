@@ -10,6 +10,7 @@ def move_to_other(): ##file_path, tag_dict
 
     if tag_dict['album'] == '':
         print("ekki album")
+<<<<<<< HEAD
         new_path = os.path.join(os.getcwd(), other_folder)
 
         print('Sending ' + os.path.split(file_path)[1] + '\n'
@@ -24,6 +25,20 @@ def move_to_other(): ##file_path, tag_dict
             os.mkdir(album_path)
         except:
             print('Cannot make folder: ' + album_path)
+=======
+        ##copy_and_rename(new_path, file_path, tag_dict)
+    ###----album strengurinn er ekki tomur---
+    else:
+        album_path = os.path.join(new_path, tag_dict['album'])
+        ####----mappan album er nuthegar til-----
+        if os.path.isdir(album_path):
+            print('albumið er til')
+            pass
+        ####-----mappan album er ekki nuthegar til----
+        else:
+            os.mkdir(album_path)
+            print('bjo til album' + album_path)
+>>>>>>> 077b205d491e9bce82e527bdbf0ae1472db1c454
         ##print(album_path)
         ##copy_and_rename(album_path, file_path, dict)
 
