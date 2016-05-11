@@ -22,7 +22,7 @@ def list_dir_test():
         else:
             log_file.write('ERROR While making folder: ' + copy_folder)
             print('Could not create folder: ' + copy_folder)
-            return 0 ##Abort if cant make folder and folder doesnt exist
+            return 0 ##Abort if cant make copy_folder and copy_folder doesnt exist
 
 
     try:
@@ -34,7 +34,7 @@ def list_dir_test():
             log_file.write('ERROR While making folder: ' + other_folder)
             print('Could not create folder: ' + other_folder)
             print('enter "y" to continue')
-            return 0    ##Abort if cant make folder and folder doesnt exist
+            return 0    ##Abort if cant make other_folder and other_folder doesnt exist
 
 
 
@@ -58,14 +58,14 @@ def file_parser(file_path):
     tag_dict = {}
     try:
         tag = stagger.read_tag(file_path)
-        tag_dict['artist'] = tag.artist
-        tag_dict['title'] = tag.title
-        tag_dict['album'] = tag.album
+        tag_dict['artist'] = ''.join(x for x in tag.artist if x not in ',<>:"/\|?*')
+        tag_dict['title'] = ''.join(y for y in tag.title if y not in ',<>:"/\|?*')
+        tag_dict['album'] = ''.join(z for z in tag.album if z not in ',<>:"/\|?*')
         tag_dict['track'] = tag.track ## Skilar núll ef að ekki er til track ?
     except:
         tag_dict = {'artist': '', 'album': '', 'title': '', 'track': ''} ## If stagger can't read the ID3, we put placeholders in the values we need
 
-            ## Kanski tjékka hvort að það sé hægt að finna artist i title ##
+##Kanski tjékka hvort að það sé hægt að finna artist i title ##
 
     if tag_dict['artist'] != '':
         move_to_artist(file_path, tag_dict)
@@ -77,8 +77,7 @@ def file_parser(file_path):
         log_file.write('\n' + 'Move to other: ' + '\n' + file_path + '\n')
         print('\n' + 'Move to other: ' + '\n' + file_path + '\n')
         pp(tag_dict)
-	move_to_other(file_path, tag_dict)
-
+        move_to_other(file_path, tag_dict)
 
 
 def move_to_artist(file_path, tag_dict):
@@ -121,13 +120,15 @@ def move_to_artist(file_path, tag_dict):
                 pass
             else:
                 log_file.write('\n' + 'Making folder: ' + album_path)
-                print('\n' + 'Making folder: ' + album_path)
+                print('\n' + 'Making folder: ' + album_path + '\n'
+                      + file_path)
                 os.mkdir(album_path)
 ##            copy_and_rename(album_path, file_path, dict)
 
 
         ##---- if we just have an artist but no album ----##
         else:
+            pass
 ##            copy_and_rename(artist_path, file_path, dict)
 
 
