@@ -16,7 +16,7 @@ other_folder = '00_Other'
 
 def fix_my_ipod():
     global log_file
-    log_file = open('ERROR_LOG.log', 'a')   
+    log_file = open('ERROR_LOG.log', 'a', encoding='utf-8')   
 
     ##---- Making copy_folder and other_folder ----##
     
