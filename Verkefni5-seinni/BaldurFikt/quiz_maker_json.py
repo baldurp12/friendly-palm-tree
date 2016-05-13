@@ -6,8 +6,6 @@ from pprint import pprint as pp
 def quiz_maker_2000():
 
 
-
-    
     question_path = os.path.join(os.getcwd(), 'questions')
     answers_path = os.path.join(os.getcwd(), 'answers')
     
@@ -18,73 +16,51 @@ def quiz_maker_2000():
 ##    print(q_files)
 
     topics = []
-    
+   
     for i in q_files:
         topics.append(i.split(sep='-')[0])
 
-    test_dict = {}
+    q_a_dict = {}
     
-    for ind, top in enumerate(topics):
-        a = open(os.path.join(question_path, q_files[ind]), 'r', encoding='utf-8')
-        b = open(os.path.join(answers_path, a_files[ind]), 'r', encoding='utf-8')
+    for index, top in enumerate(topics):
+        a = open(os.path.join(question_path, q_files[index]), 'r', encoding='utf-8')
+        b = open(os.path.join(answers_path, a_files[index]), 'r', encoding='utf-8')
         x = a.read().splitlines()
         y = b.read().splitlines()
 
         a.close()
         b.close()
         
-        test_dict[top] = []
-        for i in range( len(x) ):
-            test_dict[top].append({ str( "question"+ str(i+1)): str(x[i]) })
-            test_dict[top].append({ str( "answer" + str(i+1)): str(y[i]) })
+        temp_dict = {}
 
-    abc = json.dumps(test_dict)
+        for i in range( len(x) ): ## len(x) ætti að vera == len(y)
+            
+            temp_dict[str('question' + str(i+1).zfill(2))] = str(x[i])
+            temp_dict[str('answer' + str(i+1).zfill(2))] = str(y[i])
 
-    json_writer = open('tester.json', 'w', encoding='utf-8')
+        q_a_dict[top] = temp_dict
 
-    json_writer.write(abc)
-
-    
-    print(test_dict[   sorted(list(test_dict.keys()))[0]   ]   [1]['answer1']   )
-    
-
-
-                    
-                
+    with open("QandA.json", "w", encoding='utf_8') as js:
+        json.dump(q_a_dict,js, indent=4, sort_keys=True)
+            
         
-        
-
-    
-##    a = open(spurningar, 'r', encoding='utf-8')
-##    b = open(svor, 'r', encoding='utf-8')
-##
-##
-##    json_writer = open('tester.json', 'a', encoding='utf-8')
-##
-##    
-##
-##    
-##    x = a.read().splitlines()
-##    y = b.read().splitlines()
-##
-##    
-##    test_dict = {topic: []}
-##
-##    
-##    for i in range( len(x) ):
-##        test_dict[topic].append({ str( "q" + str(i+1) + "-question" ): str(x[i]) })
-##        test_dict[topic].append({ str( "q" + str(i+1) + "-answer" ): str(y[i]) })
+##        test_dict[top] = []
+##        for i in range( len(x) ):
+##            test_dict[top].append({ str( "question"+ str(i+1)): str(x[i]) })
+##            test_dict[top].append({ str( "answer" + str(i+1)): str(y[i]) })
 ##
 ##    abc = json.dumps(test_dict)
+##
+##    json_writer = open('tester.json', 'w', encoding='utf-8')
+##
+##    json_writer.write(abc)
+##
 ##    
+####    print(sorted(topics) == sorted(list(test_dict.keys())))
 ##
-##
-##    
-##
-##    c.write(abc)
-##    print(json.loads(abc))
-
-
+##    print(test_dict['animal'][3])
+##    print(test_dict[   sorted(list(test_dict.keys()))[0]   ]   [1]['answer1']   ) 
+    
 
         
 quiz_maker_2000()

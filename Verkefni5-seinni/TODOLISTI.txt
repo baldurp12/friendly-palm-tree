@@ -1,0 +1,2 @@
+Þarf að athuga hvort að það séu svör fyrir allar spurningar
+Athuga líka hvort að það séu jafnmargar skrár í 'questions' og 'answers'
