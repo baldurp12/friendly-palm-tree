@@ -81,9 +81,12 @@ class Window(Frame):
 
 
         ##-----EnterButton----
-        enterButton = Button(self, text = "Make Quiz")
+        enterButton = Button(self, text = "Make Quiz", command=self.questions)
         enterButton.place(x=50, y=200)
 
+        
+        
+    def questions(self):
         ##-----question-----
         text = Label(self, text = "Why is the sky blue???")
         text.pack()
@@ -100,6 +103,8 @@ class Window(Frame):
         b = Button(self, text="send", width=10, command=self.callback)
         b.pack()
         b.place(x=50, y=290)
+        
+        
 
     def callback(self):
         print (v.get())
