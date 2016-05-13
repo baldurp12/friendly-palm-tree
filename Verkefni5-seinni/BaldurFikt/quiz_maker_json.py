@@ -15,7 +15,8 @@ def quiz_maker_2000():
     a_files = sorted(os.listdir(answers_path))
 
 
-    print(q_files)
+##    print(q_files)
+
     topics = []
     
     for i in q_files:
@@ -34,14 +35,17 @@ def quiz_maker_2000():
         
         test_dict[top] = []
         for i in range( len(x) ):
-            test_dict[top].append({ str( "q" + str(i+1) + "-question" ): str(x[i]) })
-            test_dict[top].append({ str( "q" + str(i+1) + "-answer" ): str(y[i]) })
+            test_dict[top].append({ str( "question"+ str(i+1)): str(x[i]) })
+            test_dict[top].append({ str( "answer" + str(i+1)): str(y[i]) })
 
     abc = json.dumps(test_dict)
 
     json_writer = open('tester.json', 'w', encoding='utf-8')
 
     json_writer.write(abc)
+
+    
+    print(test_dict[   sorted(list(test_dict.keys()))[0]   ]   [1]['answer1']   )
     
 
 
