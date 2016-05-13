@@ -88,7 +88,7 @@ class Window(Frame):
         
     def questions(self):
         ##-----question-----
-        text = Label(self, text = "Why is the sky blue???")
+        text = Label(self, text = "Why is the sky blue??????")
         text.pack()
         text.place(x=50, y=230)
         
