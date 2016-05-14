@@ -1,5 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
+counter = 0
+s = ""
 
 class Window(Frame):
     def __init__(self, master = None):
@@ -89,26 +91,37 @@ class Window(Frame):
         
         
     def questions(self):
-        for i in range(10):
-            ##-----question-----
-            text = Label(self, text = animal["question" + str(i+1).zfill(2)]).pack()
-      
-            
-            ##-----EntryWidget----
-            global v
-            v = StringVar()
-            e = Entry(self, textvariable=v).pack()
-     
-            
-
-            v.set("answer")        
-            b = Button(self, text="send", width=10, command=self.callback).pack()
-     
+        global text
+        global s
+        ##-----question-----
+        text = Label(self, text = animal["question01"])
+        text.place(x=50, y=230)
+  
+        
+        ##-----EntryWidget----
+        self.usertext = StringVar()
+        self.entr = Entry(self, textvariable=self.usertext)
+        self.entr.place(x=50, y=260)
+        ##v.set("answer")
+        ##s = v.get()
+        
+        b = Button(self, text="send", width=10, command=self.callback)
+        b.place(x=50, y=290)
             
 
 
     def callback(self):
-        print (v.get())
+        global counter
+        ##global s
+        counter +=1
+        if self.usertext.get() == animal["answer" + str(counter).zfill(2)]:
+            print("REETTT SVVAAAAR")
+        else:
+            print("Rangt svaaaaar :(")
+        text.configure(text=animal["question" + str(counter).zfill(2)])
+
+##    def compare_ans(self):
+##        print(v.get())
         
     def animal(self):
             print("Þu ert flottur!")
@@ -122,10 +135,10 @@ class Window(Frame):
 
 animal= {
     "answer01": "Bamboo",
-    "answer02": "False - Captive mice live for up to 2 and a half years while wild mice only live for an average of around 4 months.",
+    "answer02": "False",
     "answer03": "Arachnophobia",
-    "answer04": "The tiger, weighing up to 300 kilograms (660 pounds).",
-    "answer05": "True - They often sleep with their mouth open to cool down.",
+    "answer04": "The tiger",
+    "answer05": "True",
     "answer06": "Yes",
     "answer07": "Cows",
     "answer08": "True",
