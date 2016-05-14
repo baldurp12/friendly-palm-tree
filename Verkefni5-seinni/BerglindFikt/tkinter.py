@@ -82,29 +82,30 @@ class Window(Frame):
 
         ##-----EnterButton----
         enterButton = Button(self, text = "Make Quiz", command=self.questions)
+        
+        enterButton.pack()
         enterButton.place(x=50, y=200)
 
         
         
     def questions(self):
-        ##-----question-----
-        text = Label(self, text = "Why is the sky blue??????")
-        text.pack()
-        text.place(x=50, y=230)
-        
-        ##-----EntryWidget----
-        global v
-        v = StringVar()
-        e = Entry(self, textvariable=v)
-        e.pack()
-        e.place(x=50, y=260)
+        for i in range(10):
+            ##-----question-----
+            text = Label(self, text = animal["question" + str(i+1).zfill(2)]).pack()
+      
+            
+            ##-----EntryWidget----
+            global v
+            v = StringVar()
+            e = Entry(self, textvariable=v).pack()
+     
+            
 
-        v.set("answer")        
-        b = Button(self, text="send", width=10, command=self.callback)
-        b.pack()
-        b.place(x=50, y=290)
-        
-        
+            v.set("answer")        
+            b = Button(self, text="send", width=10, command=self.callback).pack()
+     
+            
+
 
     def callback(self):
         print (v.get())
@@ -118,7 +119,28 @@ class Window(Frame):
             print("OOOOOJEEEEE!")
     def space(self):
             print("BaldurSkvaldurKaldurFlaldur!")
-            
+
+animal= {
+    "answer01": "Bamboo",
+    "answer02": "False - Captive mice live for up to 2 and a half years while wild mice only live for an average of around 4 months.",
+    "answer03": "Arachnophobia",
+    "answer04": "The tiger, weighing up to 300 kilograms (660 pounds).",
+    "answer05": "True - They often sleep with their mouth open to cool down.",
+    "answer06": "Yes",
+    "answer07": "Cows",
+    "answer08": "True",
+    "answer09": "Antarctica",
+    "answer10": "True",
+    "question01": "What is the closest planet to the Sun?",
+    "question02": "What is the name of the 2nd biggest planet in our solar system?",
+    "question03": "What is the hottest planet in our solar system?",
+    "question04": "What planet is famous for its big red spot on it?",
+    "question05": "What planet is famous for the beautiful rings that surround it?",
+    "question06": "Can humans breathe normally in space as they can on Earth?",
+    "question07": "Is the sun a star or a planet?",
+    "question08": "Who was the first person to walk on the moon?",
+    "question09": "What planet is known as the red planet?",
+    "question10": "What is the name of the force holding us to the Earth?"}
 
         
        
@@ -126,7 +148,7 @@ class Window(Frame):
     
 
 root = Tk()
-root.resizable(width=FALSE, height=FALSE)
+root.resizable(width=FALSE, height=TRUE)
 root.geometry("500x600")
 app = Window(root)
 root.mainloop()
