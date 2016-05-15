@@ -1,0 +1,12 @@
+Við viljum:
+
+Make quiz fela radio takkana og make quiz takkana
+Send quiz takka sem að reiknar út scor og sýnir aftur radio og make quiz
+Breyta myndinni af Hjalta
+Logo í staðinn fyrir Hjalta, Hjalta í staðinn fyrir broskall
+Birta einkun og vista í skrá
+taka við nafni quiz-taka
+Ef að klukkan er meira en 22:00, neita aðgang að quiz eyða skrám ef reynt er aftur.
+
+
+
