@@ -115,9 +115,23 @@ class Window(Frame):
         ##global s
         counter +=1
         if self.usertext.get() == animal["answer" + str(counter).zfill(2)]:
-            print("REETTT SVVAAAAR")
+            correct_text = Label(self, text = "You are corrent!, good job!")
+            correct_text.place(x=50, y=320)
+            
+            load = Image.open('rettsvar.jpg')
+            render = ImageTk.PhotoImage(load)
+            img = Label(self, image = render)
+            img.image = render
+            img.place(x=300, y=350)
         else:
-            print("Rangt svaaaaar :(")
+            wrong_text = Label(self, text = "You are incorrent, sorry")
+            wrong_text.place(x=50, y=320)
+            
+            load = Image.open('rangtsvar.jpg')
+            render = ImageTk.PhotoImage(load)
+            img = Label(self, image = render)
+            img.image = render
+            img.place(x=300, y=350)
         text.configure(text=animal["question" + str(counter).zfill(2)])
 
 ##    def compare_ans(self):
