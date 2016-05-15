@@ -188,7 +188,7 @@ class Window(Frame):
         global counter
         ##global s
   
-        if self.usertext.get() == self.quiz_dict[self.current_topic]["answer" + str(counter + 1).zfill(2)]:
+        if self.usertext.get().lower() == self.quiz_dict[self.current_topic]["answer" + str(counter + 1).zfill(2)].lower():
             correct_text = Label(self, text = "You are correct, good job!!!")
             correct_text.place(x=50, y=320)
             
