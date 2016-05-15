@@ -15,6 +15,7 @@ class Window(Frame):
         self.master = master
         self.init_window()
         
+        
 ##    def showImg(self):
 ##        load = Image.open('my_smiley.jpg')
 ##        render = ImageTk.PhotoImage(load)
@@ -30,6 +31,7 @@ class Window(Frame):
         exit()
     def init_window(self):
         self.master.title("Quiz for kids and Hjalti")
+        self.picture_folder = os.path.join(os.getcwd(), 'pictures')
         
         self.pack(fill = BOTH, expand=1)
         
@@ -43,7 +45,7 @@ class Window(Frame):
         file.add_command(label = "Exit", command = self.client_exit)
         menu.add_cascade(label = "File", menu = file)
         ##-------add image-----------
-        load = Image.open('hjalti.jpg')
+        load = Image.open(os.path.join(self.picture_folder,'logo.png'))
         render = ImageTk.PhotoImage(load)
         
         img = Label(self, image = render)
@@ -177,7 +179,7 @@ class Window(Frame):
             correct_text = Label(self, text = "You are corrent!, good job!")
             correct_text.place(x=50, y=320)
             
-            load = Image.open('rettsvar.jpg')
+            load = Image.open(os.path.join(self.picture_folder,'correct_answer.jpg'))
             render = ImageTk.PhotoImage(load)
             img = Label(self, image = render)
             img.image = render
@@ -188,7 +190,7 @@ class Window(Frame):
             wrong_text = Label(self, text = 'Correct answer is: \n' + self.quiz_dict[self.current_topic]["answer" + str(counter+1).zfill(2)])
             wrong_text.place(x=50, y=420)
             
-            load = Image.open('rangtsvar.jpg')
+            load = Image.open(os.path.join(self.picture_folder,'wrong_answer.jpg'))
             render = ImageTk.PhotoImage(load)
             img = Label(self, image = render)
             img.image = render
@@ -278,7 +280,7 @@ class Window(Frame):
 root = Tk()
 root.resizable(width=FALSE, height=TRUE)
 root.geometry("500x600")
-root.wm_iconbitmap('turtles.ico')
+root.wm_iconbitmap(os.path.join(os.getcwd(),'pictures', 'turtles.ico'))
 app = Window(root)
 root.mainloop()
 
