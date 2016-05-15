@@ -6,7 +6,7 @@ True
 Keratin
 The skin
 Bone marrow
-False (there are 206)
+False
 2
 Larynx
 Nostrils
