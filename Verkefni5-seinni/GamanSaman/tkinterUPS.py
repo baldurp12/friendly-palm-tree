@@ -7,7 +7,7 @@ from os import path
 
 counter = 0
 s = ""
-
+corr_answers = 0
 
 class Window(Frame):
     def __init__(self, master = None):
@@ -62,16 +62,16 @@ class Window(Frame):
         self.topic_list = sorted(list(self.quiz_dict))
 
         ##----text---------
-        text = Label(self, text = "Welcome to our educating Quiz for kids!!!")
+        head_text = Label(self, text = "Welcome to our educating Quiz for kids!!!")
 ##        text.pack()
-        text.place(x=50, y=0)
+        head_text.place(x=50, y=0)
 
 ##        text = Label(self, text = "Please choose a category")
 ####        text.pack()
 ##        text.place(x=50, y=30)
 
         ##-------checkbutton-------
-        self.buttonvalue = StringVar()
+##        self.buttonvalue = StringVar()
 
 ##        for i in range(len(self.topic_list)):
 ##            R = Radiobutton(self, text=self.topic_list[i].title(), variable=self.buttonvalue,
@@ -146,7 +146,7 @@ class Window(Frame):
         
         
     def questions(self):
-        global text
+##        global text
         global s
         global counter
         counter = 0
@@ -154,10 +154,12 @@ class Window(Frame):
         
         ##-----question-----
         try:
-            text = Label(self, text = self.quiz_dict[self.current_topic]['question01'])
+            self.question_text = Label(self, text = self.quiz_dict[self.current_topic]['question01'])
+##            self.question_text.place(x=50, y=230)
         except:
-            text = Label(self, text = "No topic selected")
-        text.place(x=50, y=230)
+            self.question_text = Label(self, text = "No topic selected")
+##            self.makeradio()
+        self.question_text.place(x=50, y=230)
   
         
         ##-----EntryWidget----
@@ -166,9 +168,11 @@ class Window(Frame):
         self.entr.place(x=50, y=260)
         ##v.set("answer")
         ##s = v.get()
+
         
-        b = Button(self, text="send", width=10, command=self.callback)
-        b.place(x=50, y=290)
+        self.b = Button(self, text="send", width=10, command=self.callback)
+        self.b.place(x=50, y=290)
+
 
         self.enterButton.place_forget()
         self.R1.place_forget()
@@ -176,7 +180,8 @@ class Window(Frame):
         self.R3.place_forget()
         self.R4.place_forget()
         self.text.place_forget()
-            
+
+
 
 
     def callback(self):
@@ -184,7 +189,7 @@ class Window(Frame):
         ##global s
   
         if self.usertext.get() == self.quiz_dict[self.current_topic]["answer" + str(counter + 1).zfill(2)]:
-            correct_text = Label(self, text = "You are corrent!, good job!")
+            correct_text = Label(self, text = "You are correct, good job!!!")
             correct_text.place(x=50, y=320)
             
             load = Image.open(os.path.join(self.picture_folder,'correct_answer.jpg'))
@@ -192,10 +197,25 @@ class Window(Frame):
             img = Label(self, image = render)
             img.image = render
             img.place(x=300, y=300)
-            
+            global corr_answers
+            corr_answers += 1
             
         else:
-            wrong_text = Label(self, text = "You are an idiot, not sorry")
+##            try:
+##                result_text.config(text = '')
+##            except:
+##                pass
+##            
+##            try:
+##                wrong_text.config(text = '')
+##            except:
+##                pass
+##            
+##            try:
+##                correct_text.config(text = '')
+##            except:
+##                pass
+            wrong_text = Label(self, text = "Incorrect answer, too bad!!!")
             wrong_text.place(x=50, y=320)
             wrong_text = Label(self, text = 'Correct answer is: \n' + self.quiz_dict[self.current_topic]["answer" + str(counter+1).zfill(2)])
             wrong_text.place(x=50, y=420)
@@ -209,13 +229,23 @@ class Window(Frame):
 
         if (counter+1)*2 >= len(list(self.quiz_dict[self.current_topic].keys())):
             counter = 0
+
+            result_text = Label(self, text = "Quiz finished, you got: " + str(corr_answers) + r'/' +
+                               str(len(list(self.quiz_dict[self.current_topic].keys()))//2))
+            result_text.place(x=50, y=320)
+            self.question_text.place_forget()
+            self.entr.place_forget()
+            self.b.place_forget()
             self.makeradio()
         else:
             counter += 1
-            text.configure(text=self.quiz_dict[self.current_topic]["question" + str(counter+1).zfill(2)])  
+            self.question_text.configure(text=self.quiz_dict[self.current_topic]["question" + str(counter+1).zfill(2)])  
 
 
     def makeradio(self):
+        
+        self.buttonvalue = StringVar()
+
         self.text = Label(self, text = "Please choose a category")
 ##        text.pack()
         self.text.place(x=50, y=30)
@@ -225,7 +255,6 @@ class Window(Frame):
         self.enterButton = Button(self, text = "Make Quiz", command = self.questions)
         self.enterButton.place(x=50, y=200)
         
-
         self.R1 = Radiobutton(self, text="Animal", variable=self.buttonvalue, value='animal',
                           command=self.buttonvalue.set(self))
 ##        R1.pack()
@@ -245,6 +274,7 @@ class Window(Frame):
                           command=self.buttonvalue.set(self)) ### SHIT FUCK
 ##        R4.pack()
         self.R4.place(x=50, y=150)
+        self.buttonvalue.set('animal')
 
 
 

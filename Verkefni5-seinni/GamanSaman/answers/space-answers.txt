@@ -10,8 +10,6 @@ Mars
 Gravity
 No
 An observatory
-Hubble Space Telescope
-The Milky Way Galaxy
 Sputnik
 Jupiter
 Titan
