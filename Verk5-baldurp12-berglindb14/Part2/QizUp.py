@@ -28,7 +28,7 @@ class Window(Frame):
         menu.add_cascade(label = "File", menu = file)
         
         ##----add logo----##
-        load = Image.open(os.path.join(self.picture_folder,'logo.png'))
+        load = Image.open(os.path.join(self.picture_folder,'logo.jpg'))
         render = ImageTk.PhotoImage(load)
         img = Label(self, image = render)
         img.image = render
