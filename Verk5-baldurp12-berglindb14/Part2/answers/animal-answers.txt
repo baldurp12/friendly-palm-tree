@@ -1,0 +1,28 @@
+Bamboo
+False
+Arachnophobia
+The tiger
+True
+Yes
+Cows
+True
+Antarctica
+True
+The cheetah
+A female deer
+False
+Prides
+Yes
+The elephant
+False
+Africa
+2
+The Gorilla
+A fish
+True
+A mare
+Kids
+The giraffe
+True
+Its mane
+8

@@ -2,31 +2,16 @@ from tkinter import *
 from PIL import Image, ImageTk
 import json
 import os
-from os import path
 
-
-counter = 0
-s = ""
-corr_answers = 0
+counter = 0 ##never not use global
+corr_answers = 0 ##never not use global
 
 class Window(Frame):
     def __init__(self, master = None):
         Frame.__init__(self, master)
         self.master = master
         self.init_window()
-        
-        
-##    def showImg(self):
-##        load = Image.open('my_smiley.jpg')
-##        render = ImageTk.PhotoImage(load)
-##
-##        img = Label(self, image = render)
-##        img.image = render
-##        img.place(x=100, y=100)
-
-        
-
-        
+   
     def client_exit(self):
         exit()
     def init_window(self):
@@ -34,24 +19,22 @@ class Window(Frame):
         self.picture_folder = os.path.join(os.getcwd(), 'pictures')
         
         self.pack(fill = BOTH, expand=1)
-        
-##        quitButton = Button(self, text = "Quit", command = self.client_exit)
-##        quitButton.place(x=0, y=0)
-        
+
+        ##----menu bar----##
         menu = Menu(self.master)
         self.master.config(menu=menu)
-        
         file = Menu(menu)
         file.add_command(label = "Exit", command = self.client_exit)
         menu.add_cascade(label = "File", menu = file)
-        ##-------add image-----------
+        
+        ##----add logo----##
         load = Image.open(os.path.join(self.picture_folder,'logo.png'))
         render = ImageTk.PhotoImage(load)
-        
         img = Label(self, image = render)
         img.image = render
         img.place(x=330, y=5)
-        ##------build quiz dictionary
+        
+        ##----build quiz dictionary----##
         self.quiz_dict = {}
         if os.path.isfile('QandA.json'):
             pass
@@ -61,119 +44,32 @@ class Window(Frame):
             self.quiz_dict = json.load(f)
         self.topic_list = sorted(list(self.quiz_dict))
 
-        ##----text---------
-        head_text = Label(self, text = "Welcome to our educating Quiz for kids!!!")
-##        text.pack()
+        ##----header----##
+        head_text = Label(self, text = "Welcome to our educating Quiz for kids!!!", font=('', 11))
         head_text.place(x=50, y=0)
 
-##        text = Label(self, text = "Please choose a category")
-####        text.pack()
-##        text.place(x=50, y=30)
-
-        ##-------checkbutton-------
-##        self.buttonvalue = StringVar()
-
-##        for i in range(len(self.topic_list)):
-##            R = Radiobutton(self, text=self.topic_list[i].title(), variable=self.buttonvalue,
-##                            command=self.buttonvalue.set(self),
-##                            value=self.topic_list[i])
-##            R.pack()
-##            R.place(x=50, y = 60 + i*35)
-            
         self.makeradio()
-      
-
-##        R1 = Radiobutton(self, text="Animal", variable=self.var2, value='animal',
-##                          command=self.var2.set(self))
-##        R1.pack()
-##        R1.place(x=50, y=60)
-##
-##        R2 = Radiobutton(self, text="Human", variable=self.var2, value='human',
-##                          command=self.var2.set(self))
-##        R2.pack()
-##        R2.place(x=50, y=90)
-##
-##        R3 = Radiobutton(self, text="Space", variable=self.var2, value='space',
-##                          command=self.var2.set(self))
-##        R3.pack()
-##        R3.place(x=50, y=120)
-##
-##        R4 = Radiobutton(self, text="Planets", variable=self.var2, value='planet',
-##                          command=self.var2.set(self))
-##        R4.pack()
-##        R4.place(x=50, y=150)
-
-
-##
-##
-##
-##        self.var = IntVar()
-##        a = Checkbutton(self, text="Animals",
-##            variable=self.var,
-##            command=self.animal)
-##        a.pack()
-##        a.place(x=50, y=60)
-##
-##        self.var = IntVar()
-##        b = Checkbutton(self, text="Human",
-##            variable=self.var,
-##            command=self.human)
-##        b.pack()
-##        b.place(x=50, y=90)
-##
-##        self.var = IntVar()
-##        c = Checkbutton(self, text="Planet",
-##            variable=self.var,
-##            command=self.planet)
-##        c.pack()
-##        c.place(x=50, y=120)
-##
-##        self.var = IntVar()
-##        d = Checkbutton(self, text="Space",
-##            variable=self.var,
-##            command=self.space)
-##        d.pack()
-##        d.place(x=50, y=150)
-
-
-##        ##-----EnterButton----
-##
-##        self.enterButton = Button(self, text = "Make Quiz", command = self.questions)
-##        
-####        enterButton.pack()
-##        self.enterButton.place(x=50, y=200)
-
-        
         
     def questions(self):
-##        global text
-        global s
         global counter
         counter = 0
         self.current_topic = self.buttonvalue.get()
         
-        ##-----question-----
-        try:
-            self.question_text = Label(self, text = self.quiz_dict[self.current_topic]['question01'])
-##            self.question_text.place(x=50, y=230)
-        except:
-            self.question_text = Label(self, text = "No topic selected")
-##            self.makeradio()
+        ##----question text----##
+        self.question_text = Label(self, text = self.quiz_dict[self.current_topic]['question01'])
         self.question_text.place(x=50, y=230)
   
         
-        ##-----EntryWidget----
+        ##----entry widget----##
         self.usertext = StringVar()
         self.entr = Entry(self, textvariable=self.usertext)
         self.entr.place(x=50, y=260)
-        ##v.set("answer")
-        ##s = v.get()
 
-        
-        self.b = Button(self, text="send", width=10, command=self.callback)
-        self.b.place(x=50, y=290)
+        ##---submit button----##
+        self.submit = Button(self, text="Submit answer", width=10, command=self.callback)
+        self.submit.place(x=50, y=290)
 
-
+        ##----hide buttons and 'make quiz'----##
         self.enterButton.place_forget()
         self.R1.place_forget()
         self.R2.place_forget()
@@ -182,12 +78,10 @@ class Window(Frame):
         self.text.place_forget()
 
 
-
-
     def callback(self):
-        global counter
-        ##global s
-  
+        global counter ##never not use global
+        
+        ##----check for correct answer----##
         if self.usertext.get().lower() == self.quiz_dict[self.current_topic]["answer" + str(counter + 1).zfill(2)].lower():
             correct_text = Label(self, text = "You are correct, good job!!!")
             correct_text.place(x=50, y=320)
@@ -197,24 +91,10 @@ class Window(Frame):
             img = Label(self, image = render)
             img.image = render
             img.place(x=300, y=300)
-            global corr_answers
+            global corr_answers ##never not use global
             corr_answers += 1
             
         else:
-##            try:
-##                result_text.config(text = '')
-##            except:
-##                pass
-##            
-##            try:
-##                wrong_text.config(text = '')
-##            except:
-##                pass
-##            
-##            try:
-##                correct_text.config(text = '')
-##            except:
-##                pass
             wrong_text = Label(self, text = "Incorrect answer, too bad!!!")
             wrong_text.place(x=50, y=320)
             wrong_text = Label(self, text = 'Correct answer is: \n' + self.quiz_dict[self.current_topic]["answer" + str(counter+1).zfill(2)])
@@ -226,7 +106,6 @@ class Window(Frame):
             img.image = render
             img.place(x=300, y=300)
             
-
         if (counter+1)*2 >= len(list(self.quiz_dict[self.current_topic].keys())):
             counter = 0
 
@@ -235,7 +114,7 @@ class Window(Frame):
             result_text.place(x=50, y=320)
             self.question_text.place_forget()
             self.entr.place_forget()
-            self.b.place_forget()
+            self.submit.place_forget()
             self.makeradio()
         else:
             counter += 1
@@ -243,59 +122,37 @@ class Window(Frame):
 
 
     def makeradio(self):
-        
+
+        ##----make variable for radibutton selection----##
         self.buttonvalue = StringVar()
 
         self.text = Label(self, text = "Please choose a category")
-##        text.pack()
         self.text.place(x=50, y=30)
 
-        ##-----EnterButton----
+        ##----create the 'make quiz' button----##
 
         self.enterButton = Button(self, text = "Make Quiz", command = self.questions)
         self.enterButton.place(x=50, y=200)
-        
+
+        ##----radio button soup(our for loop didn't take yes for an answer)----##
         self.R1 = Radiobutton(self, text="Animal", variable=self.buttonvalue, value='animal',
                           command=self.buttonvalue.set(self))
-##        R1.pack()
         self.R1.place(x=50, y=60)
 
         self.R2 = Radiobutton(self, text="Human", variable=self.buttonvalue, value='human',
                           command=self.buttonvalue.set(self))
-##        R2.pack()
         self.R2.place(x=50, y=90)
 
         self.R3 = Radiobutton(self, text="Space", variable=self.buttonvalue, value='space',
                           command=self.buttonvalue.set(self))
-##        R3.pack()
         self.R3.place(x=50, y=120)
 
         self.R4 = Radiobutton(self, text="Planets", variable=self.buttonvalue, value='planet',
-                          command=self.buttonvalue.set(self)) ### SHIT FUCK
-##        R4.pack()
+                          command=self.buttonvalue.set(self))
         self.R4.place(x=50, y=150)
         self.buttonvalue.set('animal')
 
-
-
-##    def compare_ans(self):
-##        print(v.get())
-
-##    def radio_update():
-##        pass
-##        
-##    def animal(self):
-##            print("Þu ert flottur!")
-##    def human(self):
-##            print("OH BABY!")
-##    def planet(self):
-##            print("OOOOOJEEEEE!")
-##    def space(self):
-##            print("BaldurSkvaldurKaldurFlaldur!")
-
-
-
-
+    ##---JSON parser----##
     def quiz_maker_2000(self):
         question_path = os.path.join(os.getcwd(), 'questions')
         answers_path = os.path.join(os.getcwd(), 'answers')
@@ -330,28 +187,6 @@ class Window(Frame):
 
         with open("QandA.json", "w", encoding='utf_8') as js:
             json.dump(q_a_dict,js, indent=4, sort_keys=True)
-##
-##animal= {
-##    "answer01": "Bamboo",
-##    "answer02": "False",
-##    "answer03": "Arachnophobia",
-##    "answer04": "The tiger",
-##    "answer05": "True",
-##    "answer06": "Yes",
-##    "answer07": "Cows",
-##    "answer08": "True",
-##    "answer09": "Antarctica",
-##    "answer10": "True",
-##    "question01": "What is the closest planet to the Sun?",
-##    "question02": "What is the name of the 2nd biggest planet in our solar system?",
-##    "question03": "What is the hottest planet in our solar system?",
-##    "question04": "What planet is famous for its big red spot on it?",
-##    "question05": "What planet is famous for the beautiful rings that surround it?",
-##    "question06": "Can humans breathe normally in space as they can on Earth?",
-##    "question07": "Is the sun a star or a planet?",
-##    "question08": "Who was the first person to walk on the moon?",
-##    "question09": "What planet is known as the red planet?",
-##    "question10": "What is the name of the force holding us to the Earth?"}
 
 root = Tk()
 root.resizable(width=FALSE, height=TRUE)
